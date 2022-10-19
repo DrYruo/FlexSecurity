@@ -4,13 +4,38 @@ require_once '../back/Bdd.php';
 $BDD = new Bdd();
 
 function getAdminRightWithFault(Bdd $bdd, String $name, String $password) {
-    $sql = "SELECT name, password FROM user WHERE user.name = '$name' and user.password ='$password'";
-    $req = $bdd->getBdd()->query($sql, PDO::FETCH_OBJ);
-    $res = $req->fetch(PDO::FETCH_OBJ);
-    if (!empty($res)) {
-        echo '<p class="text-success fs-3"> Bienvenue '.$res->name.' !</p>';
-    } else {
+    try {
+        $sql = "SELECT name, password FROM user WHERE name = '$name' and password ='$password'";
+        $req = $bdd->getBdd()->query($sql, PDO::FETCH_OBJ);
+        $res = $req->fetch(PDO::FETCH_OBJ);
+        if (!empty($res)) {
+            echo '<p class="text-success fs-3"> Bienvenue '.$res->name.' !</p>';
+        } else {
+            echo '<p class="text-danger fs-3"> Connection impossible, les identifiants ne sont pas bons !';
+        }
+    } catch(Exception $e) {
         echo '<p class="text-danger fs-3"> Connection impossible, les identifiants ne sont pas bons !';
+    }
+}
+
+function getAdminRight(Bdd $bdd, String $name, String $password)
+{
+    try {
+        $sql = "SELECT name, password FROM user WHERE name = ? and password = ?";
+        $req = $bdd->preparerRequete($sql);
+        $req->bindValue(1, $name, PDO::PARAM_STR);
+        $req->bindValue(2, $password, PDO::PARAM_STR);
+        $req->execute();
+        $res = $req->fetch(PDO::FETCH_OBJ);
+        if (!empty($res)) {
+            echo '<p class="text-success fs-3"> Bienvenue ' . $res->name . ' !</p>';
+        } else {
+            echo '<p class="text-danger fs-3"> Connection impossible, les identifiants ne sont pas bons !</p>;
+                    <p class="text-danger fs-3">Pas d\'injection SQL possible cette fois !</p>';
+        }
+    } catch (Exception $e) {
+        echo '<p class="text-danger fs-3"> Connection impossible, les identifiants ne sont pas bons !</p>;
+                    <p class="text-danger fs-3">Pas d\'injection SQL possible cette fois !</p>';
     }
 }
 ?>
@@ -40,6 +65,12 @@ function getAdminRightWithFault(Bdd $bdd, String $name, String $password) {
                 $name = $_GET['failleName'];
                 $password = $_GET['faillePassword'];
                 getAdminRightWithFault($BDD, $name, $password);
+            }
+
+            if(isset($_GET['name'])) {
+                $name = $_GET['name'];
+                $password = $_GET['password'];
+                getAdminRight($BDD, $name, $password);
             }
             ?>
         </div>

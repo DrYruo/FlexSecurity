@@ -38,6 +38,4 @@ class Bdd {
     {
         return $this->bdd->prepare($sql);
     }
-
-
 }
