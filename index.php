@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="./css/bootstrap_sources/bootstrap.min.css">
+    <title>Flex Security</title>
+    <link rel="stylesheet" href="css/bootstrap_sources/bootstrap.min.css">
 </head>
 <body>
 
 <div class="container-fluid">
-    <div class="row bg-primary py-4">
+    <div class="row bg-dark py-4">
         <div class="col">
-            <h1 class="text-center">Security Project</h1>
+            <h1 class="text-center text-light">Security Project</h1>
         </div>
     </div>
 
