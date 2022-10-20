@@ -5,6 +5,12 @@ function getXssCommentaire() {
         echo "<p>".$_GET['xssCommentaire']."</p>";
     }
 }
+
+function getCommentaire() {
+    if(isset($_GET['commentaire'])) {
+        echo "<p>".htmlentities($_GET['commentaire'])."</p>";
+    }
+}
 ?>
 
 <html lang="en">
@@ -71,11 +77,13 @@ function getXssCommentaire() {
                     <div class="border border-1 border-success py-2 px-2 my-2">
                         <p class="text-light">Blablabla je suis un article super intéressant ! Rajoute vite un commentaire !</p>
                     </div>
-                    <label for="xssCommentaire" class="text-light">Votre commentaire :</label>
-                    <input type="text" id="xssCommentaire" name="xssCommentaire" class="form-control mb-2">
+                    <label for="commentaire" class="text-light">Votre commentaire :</label>
+                    <input type="text" id="commentaire" name="commentaire" class="form-control mb-2">
                     <div class="mb-3">
                         <div class="mb-3 border border-1 border-success py-5 px-2 my-2 bg-light">
-
+                            <?php
+                                getCommentaire();
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -83,9 +91,8 @@ function getXssCommentaire() {
             </form>
         </div>
         <div class="col mx-5">
-<!--            <script type='text/javascript'>alert('test')-->
             <?php
-                echo htmlspecialchars_decode("<script type='text/javascript'>alert('test')")
+                echo htmlentities("<script type='text/javascript'>alert('test')</script>")
             ?>
         </div>
     </div>
