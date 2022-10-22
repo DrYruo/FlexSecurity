@@ -35,9 +35,6 @@ require_once "../component/admin-session.php"
                 elseif(isset($_SESSION['adminConnection']) && $_SESSION['adminConnection'] == true) {
                     echo "<p class='text-success fs-3'>Contenu de foufou totalement accessible, bienvenu administrateur.</p>";
                 }
-                else {
-                    echo 'coucou';
-                }
             ?>
         </div>
     </div>

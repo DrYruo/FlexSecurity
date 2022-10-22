@@ -9,7 +9,7 @@ function getAdminRightWithFault(Bdd $bdd, String $name, String $password) {
         $req = $bdd->getBdd()->query($sql, PDO::FETCH_OBJ);
         $res = $req->fetch(PDO::FETCH_OBJ);
         if (!empty($res)) {
-            echo '<p class="text-success fs-3"> Bienvenue '.$res->name.' !</p>';
+            echo '<p class="text-success fs-3"> Bienvenu '.$res->name.' !</p>';
         } else {
             echo '<p class="text-danger fs-3"> Connection impossible, les identifiants ne sont pas bons !';
         }
@@ -28,7 +28,7 @@ function getAdminRight(Bdd $bdd, String $name, String $password)
         $req->execute();
         $res = $req->fetch(PDO::FETCH_OBJ);
         if (!empty($res)) {
-            echo '<p class="text-success fs-3"> Bienvenue ' . $res->name . ' !</p>';
+            echo '<p class="text-success fs-3"> Bienvenu ' . $res->name . ' !</p>';
         } else {
             echo '<p class="text-danger fs-3"> Connection impossible, les identifiants ne sont pas bons !</p>;
                     <p class="text-danger fs-3">Pas d\'injection SQL possible cette fois !</p>';

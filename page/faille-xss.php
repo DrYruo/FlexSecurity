@@ -38,7 +38,6 @@ function getCommentaire() {
             <h1>Le cross-site scripting !</h1>
             <p class="text-lg-start text-lg">Le cross-site scripting (faille XSS) est un type de faille de sécurité des sites web permettant d'injecter du code JavaScript dans une page.
                 <br>Cela permet ainsi d'executer divers actions sur les navigateurs web visitant la page.
-                <br>Les autres utilisateurs exécutent le script sans s’en rendre compte dès l’ouverture de la page.
             </p>
         </div>
     </div>
@@ -65,7 +64,14 @@ function getCommentaire() {
             </form>
         </div>
         <div class="col mx-5">
-
+            <h1>Explication de la faille :</h1>
+            <p>Dans cet example l'utilisateur peut entrer un commentaire et l'envoyer au serveur.</p>
+            <p>En revanche ce dernier n'est pas vérifier et sera donc ajouté de manière brut à la page.
+                <br>Cela signifie que si ce dernier contient des balises <b><?php echo htmlentities("<script>") ?></b>, du code JavaScript pourra alors être exécuté.
+            </p>
+            <p>Vous pouvez par exemple déclencher un évènement "alert" en ajoutant comme commentaire le code suivant :
+                <br><b><?php echo htmlentities("<script type='text/javascript'>alert('test')</script>") ?></b>
+            </p>
         </div>
     </div>
 
@@ -91,9 +97,11 @@ function getCommentaire() {
             </form>
         </div>
         <div class="col mx-5">
-            <?php
-                echo htmlentities("<script type='text/javascript'>alert('test')</script>")
-            ?>
+            <h1>Comment éviter la faille :</h1>
+            <p>Pour éviter la faille il suffit de vérifier l'entrée utilisateur avant de l'ajouter à la page.</p>
+            <p>Dans cet exemple une vérification est faites grâce à la fonction <b>htmlentities(</b>"saisie de l'utilisateur"<b>)</b> de PHP.
+                <br>Les balises <b><?php echo htmlentities("<script>") ?></b> sont alors échappées et ne sont donc plus interprétés.
+            </p>
         </div>
     </div>
 </div>
